@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+require 'pry'
 require_relative './spec_helper'
 require_relative '../src/input_parser'
 
@@ -7,7 +10,7 @@ describe InputParser do
 
     context 'example #1' do
       it 'should parse the input string' do
-        text = <<~INPUT
+        input = <<~INPUT
           Input 1:
           2 book at 12.49
           1 music CD at 14.99
@@ -20,14 +23,14 @@ describe InputParser do
           1 chocolate bar: 0.85
           Sales Taxes: 1.50
           Total: 42.32
-          OUTPUT
+        OUTPUT
 
-        expect(subject.parse(text)).to eq(expected)
+        expect(subject.parse(input)).to eq(expected)
       end
 
       context 'example #2' do
         it 'should parse the input string' do
-          text = <<~INPUT
+          input = <<~INPUT
             Input 2:
             1 imported box of chocolates at 10.00
             1 imported bottle of perfume at 47.50
@@ -40,13 +43,13 @@ describe InputParser do
             Total: 65.15
           OUTPUT
 
-          expect(subject.parse(text)).to eq(expected)
+          expect(subject.parse(input)).to eq(expected)
         end
       end
 
       context 'example #3' do
         it 'should parse the input string' do
-          text = <<~INPUT
+          input = <<~INPUT
             Input 3:
             1 imported bottle of perfume at 27.99
             1 bottle of perfume at 18.99
@@ -63,7 +66,7 @@ describe InputParser do
             Total: 98.38
           OUTPUT
 
-          expect(subject.parse(text)).to eq(expected)
+          expect(subject.parse(input)).to eq(expected)
         end
       end
     end

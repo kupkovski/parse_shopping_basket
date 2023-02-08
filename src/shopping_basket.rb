@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'pry'
 # This class parses the input string and returns an array of hashes
 class ShoppingBasket
@@ -27,18 +28,25 @@ class ShoppingBasket
   end
 
   def to_s
-    i = 0
     result = []
-    items.each do |item|
-      net_value_str = '%.2f' % item.net_value
-      # result << "#{item.quantity} #{item.name}: #{net_value_str} (#{item.price} + #{item.tax})"
-      result << "#{item.quantity} #{item.name}: #{net_value_str}"
-      i += 1
-    end
-    total_tax_str = '%.2f' % total_tax
-    result << "Sales Taxes: #{total_tax_str}"
-    result << "Total: #{total}"
-    result << ''
+    result << aggregate_items
+    result << aggregate_totals
     result.join("\n")
+  end
+
+  def aggregate_items
+    items.group_by(&:name).map do |name, items|
+      net_value_str = format('%<offset>.2f', offset: items.sum(&:net_value))
+      "#{items.size} #{name}: #{net_value_str}"
+    end
+  end
+
+  def aggregate_totals
+    totals = []
+    total_tax_str = format('%<offset>.2f', offset: total_tax)
+    totals << "Sales Taxes: #{total_tax_str}"
+    totals << "Total: #{total}"
+    totals << ''
+    totals
   end
 end
