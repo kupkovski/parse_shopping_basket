@@ -7,3 +7,5 @@ gem 'pry-nav'
 gem 'rspec', '~> 3.0'
 gem 'rubocop'
 gem 'rubocop-airbnb'
+
+gem "simplecov", "~> 0.22.0"
