@@ -7,11 +7,11 @@ require 'pry'
 
 # This class parses the input string and returns an array of Products
 class InputParser
-  PRICE_REGEXP = /(?<= at )\d+\.\d+/
-  IMPORTED_REGEXP = /imported/
-  EXEMPT_REGEXP = /book|chocolate|pills/
-  NAME_REGEXP = /(?<=\d )(.*)(?= at )/
-  QUANTITY_REGEXP = /^\d+/
+  PRICE_REGEXP = /(?<= at )\d+\.\d+/.freeze
+  IMPORTED_REGEXP = /imported/.freeze
+  EXEMPT_REGEXP = /book|chocolate|pills/.freeze
+  NAME_REGEXP = /(?<=\d )(.*)(?= at )/.freeze
+  QUANTITY_REGEXP = /^\d+/.freeze
 
   attr_reader :shopping_basket
 
