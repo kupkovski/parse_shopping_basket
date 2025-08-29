@@ -3,9 +3,9 @@
 require 'pry'
 # This class calculates taxes given a price and imported status
 class TaxCalculator
-  attr_reader :price, :imported, :exempt
-
   ROUND_FACTOR = 1 / 0.05
+  IMPORTED_TAX = 0.05
+  GOODS_TAX    = 0.1
 
   def initialize(price:, imported:, exempt:)
     @price = price.to_f
@@ -14,16 +14,29 @@ class TaxCalculator
   end
 
   def calculate
-    import_tax = 0
-    goods_tax = 0
-
-    import_tax = 0.05 if imported
-    goods_tax += 0.1 unless exempt
-    total_tax = (price * (import_tax + goods_tax))
+    total_tax = @price * (import_value + goods_value)
     round_tax(total_tax)
   end
 
   def round_tax(total_tax)
-    (total_tax * ROUND_FACTOR).ceil / ROUND_FACTOR
+    (total_tax.truncate(2) * ROUND_FACTOR).ceil / ROUND_FACTOR
+  end
+
+  private
+
+  def import_value
+    imported? ? IMPORTED_TAX : 0
+  end
+
+  def goods_value
+    exempt? ? 0 : GOODS_TAX
+  end
+
+  def imported?
+    @imported
+  end
+
+  def exempt?
+    @exempt
   end
 end

@@ -7,6 +7,12 @@ require 'pry'
 
 # This class parses the input string and returns an array of Products
 class InputParser
+  PRICE_REGEXP = /(?<= at )\d+\.\d+/
+  IMPORTED_REGEXP = /imported/
+  EXEMPT_REGEXP = /book|chocolate|pills/
+  NAME_REGEXP = /(?<=\d )(.*)(?= at )/
+  QUANTITY_REGEXP = /^\d+/
+
   attr_reader :shopping_basket
 
   def initialize
@@ -28,12 +34,12 @@ class InputParser
   private
 
   def process_line(line)
-    price = line.match(/(?<= at )\d+\.\d+/)[0]
-    imported = line.match?(/imported/)
-    exempt = line.match?(/book|chocolate|pills/)
+    price = line.match(PRICE_REGEXP)[0]
+    imported = line.match?(IMPORTED_REGEXP)
+    exempt = line.match?(EXEMPT_REGEXP)
 
-    quantity = line.match(/^\d+/)[0].to_i
-    name = line.match(/(?<=\d )(.*)(?= at )/)[0].strip
+    quantity = line.match(QUANTITY_REGEXP)[0].to_i
+    name = line.match(NAME_REGEXP)[0].strip
 
     add_basket_item(price, imported, exempt, quantity, name)
   end
