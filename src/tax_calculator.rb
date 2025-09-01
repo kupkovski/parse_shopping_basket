@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-require 'pry'
+require_relative 'tax_rounder'
+
 # This class calculates taxes given a price and imported status
 class TaxCalculator
   ROUND_FACTOR = 1 / 0.05
@@ -15,11 +16,7 @@ class TaxCalculator
 
   def calculate
     total_tax = @price * (import_value + goods_value)
-    round_tax(total_tax)
-  end
-
-  def round_tax(total_tax)
-    (total_tax.truncate(2) * ROUND_FACTOR).ceil / ROUND_FACTOR
+    TaxRounder.call(total_tax)
   end
 
   private
