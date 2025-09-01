@@ -28,10 +28,7 @@ class ShoppingBasket
   end
 
   def to_s
-    result = []
-    result << aggregate_items
-    result << aggregate_totals
-    result.join("\n")
+    (aggregate_items + aggregate_totals).join("\n")
   end
 
   def aggregate_items
@@ -42,11 +39,7 @@ class ShoppingBasket
   end
 
   def aggregate_totals
-    totals = []
     total_tax_str = format('%<offset>.2f', offset: total_tax)
-    totals << "Sales Taxes: #{total_tax_str}"
-    totals << "Total: #{total}"
-    totals << ''
-    totals
+    ["Sales Taxes: #{total_tax_str}", "Total: #{total}", '']
   end
 end
