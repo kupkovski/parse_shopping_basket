@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'active_support/core_ext/module/delegation'
 require 'pry'
 # This class parses the input string and returns an array of hashes
 class ShoppingBasket

@@ -2,8 +2,8 @@
 
 require 'pry'
 require_relative './spec_helper'
-require_relative '../src/line_parser'
-require_relative '../src/input_parser'
+require_relative '../src/parser/line_parser'
+require_relative '../src/parser/input_parser'
 
 describe InputParser do
   describe '#parse' do
