@@ -4,6 +4,8 @@ require_relative '../basket/basket_item'
 require_relative '../product/product'
 require_relative '../product/exempt_product'
 require_relative '../product/imported_product'
+require_relative '../product/imported_exempt_product'
+require_relative '../product/product_factory'
 
 # parses a single line and generates objects for each item
 class LineParser
@@ -46,9 +48,8 @@ class LineParser
   end
 
   def product
-    product_class = exempt ? ExemptProduct : Product
-    base_product = product_class.new(name: name, price: price)
-    @product ||= imported ? ImportedProduct.new(base_product) : base_product
+    product_class = ProductFactory.for(imported: imported, exempt: exempt)
+    @product ||= product_class.new(name: name, price: price)
   end
 
   attr_reader :line
