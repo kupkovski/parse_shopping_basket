@@ -1,46 +1,47 @@
 # frozen_string_literal: true
 
 require_relative './spec_helper'
-require_relative '../src/tax_calculator'
+require_relative '../src/product/product'
+require_relative '../src/tax/tax_calculator'
 
 describe TaxCalculator do
   describe '#calculate' do
     let(:price) { 10 }
-    subject { described_class.new(price: price, imported: imported, exempt: exempt) }
+    subject { described_class.new(product: product) }
 
     context 'for an imported product' do
-      let(:imported) { true }
-
       context 'for a non-exempt product' do
-        let(:exempt) { false }
+        let(:product) { instance_double(Product, price: price, goods_tax_rate: 0.1, import_tax_rate: 0.05) }
 
         it 'applies both imported and goods tax (5% + 10%)' do
-          expect(subject.calculate).to eq(10 * 0.15)
+          # TaxRounder rounds 1.5 up to 1.5
+          expect(subject.calculate).to eq(1.5)
         end
       end
 
       context 'for a exempt product' do
-        let(:exempt) { true }
+        let(:product) { instance_double(Product, price: price, goods_tax_rate: 0.0, import_tax_rate: 0.05) }
 
         it 'only appplies imported tax (5%)' do
-          expect(subject.calculate).to eq(10 * 0.05)
+          # TaxRounder rounds 0.5 up to 0.5
+          expect(subject.calculate).to eq(0.5)
         end
       end
     end
 
     context 'for an non-imported product' do
-      let(:imported) { false }
-
       context 'for a non-exempt product' do
-        let(:exempt) { false }
+        let(:product) { instance_double(Product, price: price, goods_tax_rate: 0.1, import_tax_rate: 0.0) }
 
         it 'only applies and goods tax (10%)' do
-          expect(subject.calculate).to eq(10 * 0.1)
+          # TaxRounder rounds 1.0 up to 1.0
+          expect(subject.calculate).to eq(1.0)
         end
       end
 
       context 'for a exempt product' do
-        let(:exempt) { true }
+        let(:product) { instance_double(Product, price: price, goods_tax_rate: 0.0, import_tax_rate: 0.0) }
+
         it 'does not apply any taxes' do
           expect(subject.calculate).to eq(0)
         end
