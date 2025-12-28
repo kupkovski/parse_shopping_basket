@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative './spec_helper'
-require_relative '../src/product/product'
-require_relative '../src/product/imported_product'
-require_relative '../src/product/imported_exempt_product'
-require_relative '../src/tax/tax_calculator'
+require 'spec_helper'
+require_relative '../../../src/domain/product/product'
+require_relative '../../../src/domain/product/imported_product'
+require_relative '../../../src/domain/product/imported_exempt_product'
+require_relative '../../../src/domain/tax/tax_calculator'
 
 describe TaxCalculator do
   describe '#calculate' do

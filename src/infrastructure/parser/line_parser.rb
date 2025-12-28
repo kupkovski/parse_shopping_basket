@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require_relative '../basket/basket_item'
-require_relative '../product/product'
-require_relative '../product/exempt_product'
-require_relative '../product/imported_product'
-require_relative '../product/imported_exempt_product'
-require_relative '../product/product_factory'
+require_relative '../../domain/basket/basket_item'
+require_relative '../../domain/product/product'
+require_relative '../../domain/product/exempt_product'
+require_relative '../../domain/product/imported_product'
+require_relative '../../domain/product/imported_exempt_product'
+require_relative '../../domain/product/product_factory'
 
 # parses a single line and generates objects for each item
 class LineParser
@@ -22,7 +22,7 @@ class LineParser
   end
 
   def process(shopping_basket)
-    quantity.times { shopping_basket << BasketItem.new(product: product) }
+    quantity.times { shopping_basket << BasketItem.new(product: product, name: name) }
   end
 
   private

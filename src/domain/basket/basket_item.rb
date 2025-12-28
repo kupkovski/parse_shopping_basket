@@ -9,10 +9,15 @@ class BasketItem
 
   attr_reader :product
 
-  def initialize(product:)
+  def initialize(product:, name: nil)
     @product = product
+    @name = name
   end
 
-  def_delegators :@product, :name, :tax, :net_price
+  def_delegators :@product, :tax, :net_price
   alias net_value net_price
+
+  def name
+    @name || @product.name
+  end
 end
