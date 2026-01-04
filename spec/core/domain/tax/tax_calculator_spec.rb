@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
-require_relative '../../../src/domain/product/product'
-require_relative '../../../src/domain/product/imported_product'
-require_relative '../../../src/domain/product/imported_exempt_product'
-require_relative '../../../src/domain/tax/tax_calculator'
+require_relative '../../../../src/core/domain/product/product'
+require_relative '../../../../src/core/domain/product/imported_product'
+require_relative '../../../../src/core/domain/product/imported_exempt_product'
+require_relative '../../../../src/core/domain/tax/tax_calculator'
 
 
 describe TaxCalculator do

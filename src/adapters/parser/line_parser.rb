@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require_relative '../../domain/basket/basket_item'
-require_relative '../../domain/product/product'
-require_relative '../../domain/product/exempt_product'
-require_relative '../../domain/product/imported_product'
-require_relative '../../domain/product/imported_exempt_product'
-require_relative '../../domain/product/product_factory'
+require_relative '../../core/domain/basket/basket_item'
+require_relative '../../core/domain/product/product'
+require_relative '../../core/domain/product/exempt_product'
+require_relative '../../core/domain/product/imported_product'
+require_relative '../../core/domain/product/imported_exempt_product'
+require_relative '../../core/domain/product/product_factory'
 
 # parses a single line and generates objects for each item
 class LineParser
