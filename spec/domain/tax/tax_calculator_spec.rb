@@ -6,6 +6,7 @@ require_relative '../../../src/domain/product/imported_product'
 require_relative '../../../src/domain/product/imported_exempt_product'
 require_relative '../../../src/domain/tax/tax_calculator'
 
+
 describe TaxCalculator do
   describe '#calculate' do
     let(:price) { 10 }
