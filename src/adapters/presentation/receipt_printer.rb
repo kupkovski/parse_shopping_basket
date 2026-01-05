@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
+require_relative '../../core/ports/receipt_printer'
+
 # Output adapter that prints the shopping basket receipt to STDOUT
 class ReceiptPrinter
-  def initialize(shopping_basket)
-    @shopping_basket = shopping_basket
-  end
+  include Core::Ports::ReceiptPrinter
 
-  def print
-    puts @shopping_basket.to_s
+  def print(shopping_basket)
+    puts shopping_basket.to_s
   end
 end

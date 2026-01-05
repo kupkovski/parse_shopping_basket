@@ -4,7 +4,7 @@ require 'spec_helper'
 require_relative '../../../src/adapters/parser/input_parser'
 
 describe InputParser do
-  subject { described_class.new }
+  subject { described_class.new(receipt_printer) }
 
   let(:shopping_basket) { instance_double('ShoppingBasket') }
   let(:receipt_printer) { instance_double('ReceiptPrinter') }
@@ -12,7 +12,6 @@ describe InputParser do
 
   before do
     allow(ShoppingBasket).to receive(:new).and_return(shopping_basket)
-    allow(ReceiptPrinter).to receive(:new).with(shopping_basket).and_return(receipt_printer)
     allow(receipt_printer).to receive(:print)
     allow(UnprocessableLineChecker).to receive(:check).and_return(false)
     allow(LineParser).to receive(:new).and_return(line_parser)
@@ -29,8 +28,7 @@ describe InputParser do
       expect(LineParser).to have_received(:new).with('1 book at 12.49')
       expect(LineParser).to have_received(:new).with('1 music CD at 14.99')
       expect(line_parser).to have_received(:process).with(shopping_basket).twice
-      expect(ReceiptPrinter).to have_received(:new).with(shopping_basket)
-      expect(receipt_printer).to have_received(:print)
+      expect(receipt_printer).to have_received(:print).with(shopping_basket)
     end
 
     it 'skips unprocessable lines' do
