@@ -13,9 +13,9 @@ describe InputParser do
   before do
     allow(ShoppingBasket).to receive(:new).and_return(shopping_basket)
     allow(receipt_printer).to receive(:print)
-    allow(UnprocessableLineChecker).to receive(:check).and_return(false)
     allow(LineParser).to receive(:new).and_return(line_parser)
     allow(line_parser).to receive(:process)
+    allow(line_parser).to receive(:unprocessable?).and_return false
   end
 
   describe '#parse' do
@@ -32,11 +32,10 @@ describe InputParser do
     end
 
     it 'skips unprocessable lines' do
-      allow(UnprocessableLineChecker).to receive(:check).with('invalid').and_return(true)
+      allow(line_parser).to receive(:unprocessable?).and_return true
       subject.parse("1 book at 12.49\ninvalid")
 
       expect(LineParser).to have_received(:new).with('1 book at 12.49')
-      expect(LineParser).not_to have_received(:new).with('invalid')
     end
   end
 end

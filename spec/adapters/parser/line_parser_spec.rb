@@ -30,4 +30,22 @@ describe LineParser do
       end
     end
   end
+
+    describe '#unprocessable?' do
+      context 'when line is processable' do
+        subject { described_class.new('1 book at 12.49') }
+
+        it 'returns false' do
+          expect(subject).to_not be_unprocessable   
+        end
+      end
+
+      context 'when line is unprocessable' do
+        subject { described_class.new('invalid') }
+
+        it 'returns false' do
+          expect(subject).to be_unprocessable   
+        end
+      end
+    end
 end

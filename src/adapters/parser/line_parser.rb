@@ -25,6 +25,14 @@ class LineParser
     quantity.times { shopping_basket << BasketItem.new(product: product, name: name) }
   end
 
+  def processable?
+    line.match?(/^\d+ /)
+  end
+
+  def unprocessable?
+    !processable?
+  end
+
   private
 
   def quantity
